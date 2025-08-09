@@ -1,0 +1,26 @@
+# Docker artifacts
+*.log
+*.pid
+*.tar
+*.gz
+*.tgz
+*.bak
+
+# Docker build directories
+docker_build/
+tmp/
+
+
+# Kubernetes config and temp files
+*.yaml~
+*.yml~
+*.json~
+*.log
+*.tmp
+
+# Helm
+charts/
+*.tgz
+
+# Kustomize
+.kustomize/
