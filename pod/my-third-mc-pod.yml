@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-third-multi-cont-pod
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - containerPort: 80
+  - name: sidecar-container
+    image: busybox
+    command: ["sh", "-c", "while true; do echo 'Hello from Sidecar container'; sleep 5; done"]
+

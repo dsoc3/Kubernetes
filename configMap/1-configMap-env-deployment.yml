@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-config-map-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-second-pod
+  template:
+    metadata:
+      labels:
+        app: my-second-pod
+        env: dsoc3
+        "can-it-be-anything": "yes"
+    spec:
+      containers:
+      - name: my-second-pod-container
+        image: nginx
+        ports:
+        - containerPort: 80
+        env:
+        - name: ENV_VAR_1
+          valueFrom:
+            configMapKeyRef:
+              name: my-env-configmap 
+              key: ENV_VAR_1
+        - name: ENV_VAR_2
+          valueFrom:
+            configMapKeyRef:
+              name: my-env-configmap
+              key: ENV_VAR_2
+        - name: ENV_VAR_3
+          valueFrom:
+            configMapKeyRef:
+              name: my-env-configmap
+              key: ENV_VAR_3

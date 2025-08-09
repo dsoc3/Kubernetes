@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-first-replica-set
+spec:
+  replicas: 3  # Specifies the number of Pod replicas.
+  selector:  # Matches Pods with the given labels.
+    matchLabels:
+      app: my-second-pod
+  template:  # Embedded Pod template.
+    metadata:
+      labels:
+        app: my-second-pod
+        env: dsoc3
+        "can-it-be-anything": "yes"
+    spec:
+      containers:
+      - name: my-second-pod-container
+        image: nginx
+        ports:
+        - containerPort: 80
+

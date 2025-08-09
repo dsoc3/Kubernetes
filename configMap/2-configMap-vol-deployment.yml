@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vol-config-map-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-second-pod
+  template:
+    metadata:
+      labels:
+        app: my-second-pod
+        env: dsoc3
+        "can-it-be-anything": "yes"
+    spec:
+      containers:
+      - name: my-second-pod-container
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: custom-nginx.conf
+      volumes:
+      - name: nginx-config-volume
+        configMap:
+          name: my-vol-configmap 

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pvc-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-second-pod
+  template:
+    metadata:
+      labels:
+        app: my-second-pod
+        env: dsoc3
+        "can-it-be-anything": "yes"
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "kubernetes.io/hostname"
+                    operator: In
+                    values: ["dsoc3-m04"]  # Replace with correct node
+      containers:
+      - name: my-second-pod-container
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: persistent-storage
+          mountPath: /persistent-data
+      volumes:
+      - name: persistent-storage
+        persistentVolumeClaim:
+          claimName: my-pvc
+

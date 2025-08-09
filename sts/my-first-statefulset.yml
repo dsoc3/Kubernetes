@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-first-statefulset
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-second-pod
+ #serviceName: my-first-service  # 👈 Headless service recommended
+  template:
+    metadata:
+      labels:
+        app: my-second-pod
+        env: dsoc3
+        "can-it-be-anything": "yes"
+    spec:
+      containers:
+        - name: my-second-pod-container
+          image: nginx
+          ports:
+            - containerPort: 80
+
